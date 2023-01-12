@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Focus Mode",
-  "description": "Hide annoying elements on a web page",
+  "description": "Customize any web page for your needs",
   "version": "1.1",
   "icons": {
     "16": "images/icon-16.png",
