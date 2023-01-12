@@ -1,0 +1,12 @@
+
+.element-in-current-focus
+{ 
+    background-color: #00ffff !important;
+    -webkit-filter: blur(4px); 
+    filter: blur(4px);
+} 
+
+.hide-element-in-focus-mode
+{ 
+    display: none !important;
+}
