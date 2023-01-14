@@ -1,57 +1,9 @@
+'use strict';
+
 const activeMode = 'ON';
-
-function injectFocusMode()
-{
-  function lightUp(e)
-  {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-
-    e.target?.classList?.add('element-in-current-focus');
-  }
-
-  function lightOff(e)
-  {
-    e.preventDefault();
-    e.stopImmediatePropagation();    
-
-    e.target?.classList?.remove('element-in-current-focus');    
-  }
-
-  function hideMe(e)
-  {
-    e.preventDefault();
-    e.stopImmediatePropagation();    
-
-    e.target?.classList?.add('hide-element-in-focus-mode');
-  }
-
-  function eject()
-  {
-    document.body.removeEventListener("mouseover", lightUp);
-    document.body.removeEventListener("mouseout", lightOff);
-    document.body.removeEventListener("click", hideMe);    
-  }
-
-  document.body.addEventListener("mouseover", lightUp);
-  document.body.addEventListener("mouseout", lightOff);
-  document.body.addEventListener("click", hideMe);
-
-  window.removeFocusModeListeners = eject;
-}
-
-function ejectFocusMode()
-{
-  if (window.removeFocusModeListeners)
-  {
-    window.removeFocusModeListeners();
-    window.removeFocusModeListeners = null;
-  }
-}
 
 chrome.action.onClicked.addListener(async (tab) => 
 {
-    const target = { tabId: tab.id, allFrames: true };
     const oldState = await chrome.action.getBadgeText({ tabId: tab.id });
     const newState = activeMode === oldState ? '' : activeMode;
 
@@ -61,35 +13,43 @@ chrome.action.onClicked.addListener(async (tab) =>
       text: newState,
     });
 
-    if (activeMode === newState)
+    try
     {
-      await chrome.scripting.insertCSS(
+      if (activeMode === newState)
       {
-        files: ["focus-mode.css"],
-        target
-      });
-      await chrome.scripting.executeScript(
+        await chrome.tabs.sendMessage(tab.id, { inject: true })
+      } 
+      else
       {
-        func: injectFocusMode,
-        target
-      });
-    } 
-    else
+        await chrome.tabs.sendMessage(tab.id, { eject: true })
+      }
+    }
+    catch (err)
     {
-      await chrome.scripting.executeScript(
-      {
-        func: ejectFocusMode,
-        target
-      });
     }
 });
 
-/*
-chrome.runtime.onInstalled.addListener(() => 
+chrome.runtime.onMessage.addListener((request, sender) => 
 {
-  chrome.action.setBadgeText(
+  if (request.hideFrame) 
   {
-    text: "OFF",
-  });
+    chrome.scripting.executeScript(
+    {
+      func: hideFrame,
+      args: [request.hideFrame],
+      target: { tabId: sender.tab.id }
+    }).catch(err => chrome.runtime.lastError);
+  }
 });
-*/
+
+function hideFrame(id)
+{
+  const frame = document.activeElement;
+
+  if (frame)
+  {
+    frame.classList.add('hide-element-in-focus-mode');
+    frame.style.display = "none";
+  }
+}
+
