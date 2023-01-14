@@ -2,11 +2,18 @@
 .element-in-current-focus
 { 
     background-color: #00ffff !important;
-    -webkit-filter: blur(4px); 
-    filter: blur(4px);
+    cursor: default !important;
+} 
+
+img.element-in-current-focus,
+.element-in-current-focus img
+{ 
+    -webkit-filter: opacity(50%) blur(4px) !important; 
+    filter: opacity(50%) blur(4px) !important;
 } 
 
 .hide-element-in-focus-mode
 { 
     display: none !important;
+    visibility: hidden !important;
 }
