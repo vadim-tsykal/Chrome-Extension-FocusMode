@@ -50,6 +50,9 @@ function injectFocusMode()
 
 chrome.runtime.onMessage.addListener( request => 
 {
+    const frame = window.top === window ? "main window" : "frame window";
+    notifyFocusMode(`Request received in ${frame}:`, request);
+
     if (request.inject)
     {
       injectFocusMode();
@@ -58,5 +61,12 @@ chrome.runtime.onMessage.addListener( request =>
     {
       ejectFocusMode();
     }
-});
+})
+
+function notifyFocusMode()
+{
+  chrome.runtime.sendMessage({ message: [...arguments] })
+  .then( obj => void chrome.runtime.lastError)
+  .catch(err => void chrome.runtime.lastError);
+}
 

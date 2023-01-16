@@ -1,6 +1,7 @@
 'use strict';
 
 const focusMode = 'ON';
+const debugMode = true;
 
 chrome.action.onClicked.addListener(async (tab) => 
 {
@@ -13,20 +14,30 @@ chrome.action.onClicked.addListener(async (tab) =>
       text: newState,
     });
 
+    log(`Focus mode is ${newState || 'OFF'}`)
+
     try
     {
       if (focusMode === newState)
       {
         await chrome.tabs.sendMessage(tab.id, { inject: true })
+        log(`Inject request sent to all`)
       } 
       else
       {
         await chrome.tabs.sendMessage(tab.id, { eject: true })
+        log(`Eject request sent to all`)
       }
     }
     catch (err)
     {
+      log(err);
       void chrome.runtime.lastError;
+    }
+
+    function log()
+    {
+      self.log("tabId", tab.id, tab.title?.slice(0,50), ...arguments);
     }
 });
 
@@ -43,6 +54,15 @@ chrome.runtime.onMessage.addListener((request, sender) =>
     .then( obj => void chrome.runtime.lastError)
     .catch(err => void chrome.runtime.lastError);
   }
+  else if (request.message)
+  {
+    log(...request.message)
+  }
+
+  function log()
+  {
+    self.log("tabId", sender.tab.id, "frameId", sender.frameId, sender.tab.title?.slice(0,50), ...arguments)
+  }
 });
 
 function hideFrame(id)
@@ -56,3 +76,7 @@ function hideFrame(id)
   }
 }
 
+function log()
+{
+  if (debugMode) console.log(...arguments)
+}
