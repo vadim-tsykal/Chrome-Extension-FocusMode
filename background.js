@@ -1,11 +1,11 @@
 'use strict';
 
-const activeMode = 'ON';
+const focusMode = 'ON';
 
 chrome.action.onClicked.addListener(async (tab) => 
 {
     const oldState = await chrome.action.getBadgeText({ tabId: tab.id });
-    const newState = activeMode === oldState ? '' : activeMode;
+    const newState = focusMode === oldState ? '' : focusMode;
 
     await chrome.action.setBadgeText(
     {
@@ -15,7 +15,7 @@ chrome.action.onClicked.addListener(async (tab) =>
 
     try
     {
-      if (activeMode === newState)
+      if (focusMode === newState)
       {
         await chrome.tabs.sendMessage(tab.id, { inject: true })
       } 
@@ -26,6 +26,7 @@ chrome.action.onClicked.addListener(async (tab) =>
     }
     catch (err)
     {
+      void chrome.runtime.lastError;
     }
 });
 
@@ -38,7 +39,9 @@ chrome.runtime.onMessage.addListener((request, sender) =>
       func: hideFrame,
       args: [request.hideFrame],
       target: { tabId: sender.tab.id }
-    }).catch(err => chrome.runtime.lastError);
+    })
+    .then( obj => void chrome.runtime.lastError)
+    .catch(err => void chrome.runtime.lastError);
   }
 });
 

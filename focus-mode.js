@@ -29,7 +29,8 @@ function injectFocusMode()
     if (document.body === e.target)
     {
         chrome.runtime.sendMessage({ hideFrame: true })
-        .catch(err => chrome.runtime.lastError);
+        .then( obj => void chrome.runtime.lastError)
+        .catch(err => void chrome.runtime.lastError);
     }
   }
 

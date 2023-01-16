@@ -1,6 +1,6 @@
 # Customize any web page for your needs in a few clicks!
 
-A small and simple interactive tool for customising web pages. You decide what to hide by clicking on highlighted element as you move mouse pointer over the page. It's an efficient tool when you need to clean up a web page before printing or taking a screenshot, or when you need to focus on important content and remove distractors (heh, those autoplay videos, flashing banners and annoying popups). Now any web page can look like you want it in a few clicks! 
+A small and simple interactive tool for customising web pages. You decide what to hide by clicking on highlighted element as you move mouse pointer over the page. It's an efficient tool when you need to clean up a web page before printing or taking a screenshot, or when you need to focus on important content and remove distractors (heh, those autoplay videos, flashing banners and annoying popups). Now any web page can look like you want it! 
 
 How to use:
 - Install the extension
