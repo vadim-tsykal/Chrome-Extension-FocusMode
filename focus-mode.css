@@ -1,5 +1,6 @@
 
-.element-in-current-focus
+.element-in-current-focus,
+.element-in-current-focus *
 { 
     background-color: #00ffff !important;
     cursor: default !important;
@@ -10,7 +11,7 @@ img.element-in-current-focus,
 { 
     -webkit-filter: opacity(50%) blur(4px) !important; 
     filter: opacity(50%) blur(4px) !important;
-} 
+}
 
 .hide-element-in-focus-mode
 { 
