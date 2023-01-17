@@ -1,6 +1,12 @@
 # Customize any web page for your needs in a few clicks!
 
-A small and simple interactive tool for customising web pages. You decide what to hide by clicking on highlighted element as you move mouse pointer over the page. It's an efficient tool when you need to clean up a web page before printing or taking a screenshot, or when you need to focus on important content and remove distractors (heh, those autoplay videos, flashing banners, annoying popups, huge headers, overloaded UI, etc). Now any web page can look like you want it! 
+A handy tool for customising web pages. You decide what to hide by clicking on highlighted element as you move mouse pointer over the page. Now any web page can look like you want it!
+
+A few examples of use cases:
+- clean up an overloaded UI
+- clean up a web page before printing or taking a screenshot
+- unhide content behind blocking dialogs
+- remove distractors (ads, autoplay videos, annoying popups, huge headers and banners, etc)
 
 How to use:
 - Install the extension
@@ -9,8 +15,8 @@ How to use:
 - Click on selected element and watch it disappear
 - Deactivate the extension (click its icon again) to continue normal browsing
 
-A few facts about this piece of software:
-- It is simple, free and open-source
+A few facts about the tool:
+- It is small and simple, free and open-source
 - It does not collect any information and does not interact with internet
 - It is not active while you are surfing and does not consume any resources unlike adblockers
 - It was inspired by a same-name Google example
@@ -23,6 +29,5 @@ https://github.com/vadim-tsykal/Chrome-Extension-FocusMode
 
 Enjoy!
 
-VT
 
 ![PromoImage](https://user-images.githubusercontent.com/91073766/212837496-5af475d9-6078-40cd-8b33-f77cdb92d24a.png)
