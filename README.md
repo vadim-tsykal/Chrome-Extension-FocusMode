@@ -21,6 +21,9 @@ A few facts about the tool:
 - It is not active while you are surfing and does not consume any resources unlike adblockers
 - It was inspired by a same-name Google example
 
+Download
+https://chrome.google.com/webstore/detail/focus-mode/npmdigoapkknhppmkeipamgclfemkigo
+
 Watch demo
 https://www.youtube.com/watch?v=FYfjMKdccWY
 
