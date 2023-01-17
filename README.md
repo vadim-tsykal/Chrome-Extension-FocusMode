@@ -25,4 +25,4 @@ Enjoy!
 
 VT
 
-![PromoImage](https://user-images.githubusercontent.com/91073766/212837581-da12caac-4748-4420-b0d8-3d10039cc298.png)
+![PromoImage](https://user-images.githubusercontent.com/91073766/212837496-5af475d9-6078-40cd-8b33-f77cdb92d24a.png)
