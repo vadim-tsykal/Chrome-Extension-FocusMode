@@ -18,7 +18,7 @@
   },
   "content_scripts": [
    {
-     "matches": ["http://*/*", "https://*/*"],
+     "matches": ["*://*/*"],
      "css": ["focus-mode.css"],
      "js": ["focus-mode.js"],
      "all_frames": true

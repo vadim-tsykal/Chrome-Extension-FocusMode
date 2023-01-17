@@ -28,9 +28,9 @@ function injectFocusMode()
 
     if (document.body === e.target)
     {
-        chrome.runtime.sendMessage({ hideFrame: true })
-        .then( obj => void chrome.runtime.lastError)
-        .catch(err => void chrome.runtime.lastError);
+      chrome.runtime.sendMessage({ hideFrame: true })
+      .then( obj => void chrome.runtime.lastError)
+      .catch(err => void chrome.runtime.lastError);
     }
   }
 
@@ -50,17 +50,23 @@ function injectFocusMode()
 
 chrome.runtime.onMessage.addListener( request => 
 {
-    const frame = window.top === window ? "main window" : "frame window";
-    notifyFocusMode(`Request received in ${frame}:`, request);
+  const frame = window.top === window ? "main window" : "frame window";
 
-    if (request.inject)
-    {
-      injectFocusMode();
-    } 
-    else if (request.eject && window.ejectFocusMode) 
-    {
-      ejectFocusMode();
-    }
+  if (request.inject)
+  {
+    log(`Inject request received in ${frame}`);
+    injectFocusMode();
+  } 
+  else if (request.eject && window.ejectFocusMode) 
+  {
+    log(`Eject request received in ${frame}`);
+    ejectFocusMode();
+  }
+
+  function log()
+  {
+    if (request.debugMode) notifyFocusMode(...arguments);
+  }
 })
 
 function notifyFocusMode()
