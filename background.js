@@ -20,13 +20,13 @@ chrome.action.onClicked.addListener(async (tab) =>
     {
       if (focusMode === newState)
       {
-        await chrome.tabs.sendMessage(tab.id, { inject: true })
-        log(`Inject request sent to all`)
+        log(`Inject request broadcast`)
+        await chrome.tabs.sendMessage(tab.id, { inject: true, debugMode })
       } 
       else
       {
-        await chrome.tabs.sendMessage(tab.id, { eject: true })
-        log(`Eject request sent to all`)
+        log(`Eject request broadcast`)
+        await chrome.tabs.sendMessage(tab.id, { eject: true, debugMode })
       }
     }
     catch (err)
