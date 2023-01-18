@@ -4,7 +4,7 @@
 { 
     background-color: #00ffff !important;
     cursor: default !important;
-} 
+}
 
 img.element-in-current-focus,
 .element-in-current-focus img
@@ -14,7 +14,8 @@ img.element-in-current-focus,
 }
 
 .hide-element-in-focus-mode
-{ 
+{
     display: none !important;
     visibility: hidden !important;
+    z-index: -1000 !important;
 }
