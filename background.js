@@ -43,8 +43,14 @@ chrome.action.onClicked.addListener(async (tab) =>
 
 chrome.runtime.onMessage.addListener((request, sender) => 
 {
+  if (request.message)
+  {
+    log(...request.message)
+  }
+
   if (request.hideFrame) 
   {
+    log("Hide frame request");
     chrome.scripting.executeScript(
     {
       func: hideFrame,
@@ -54,11 +60,7 @@ chrome.runtime.onMessage.addListener((request, sender) =>
     .then( obj => void chrome.runtime.lastError)
     .catch(err => void chrome.runtime.lastError);
   }
-  else if (request.message)
-  {
-    log(...request.message)
-  }
-
+  
   function log()
   {
     self.log("tabId", sender.tab.id, "frameId", sender.frameId, sender.tab.title?.slice(0,50), ...arguments)
