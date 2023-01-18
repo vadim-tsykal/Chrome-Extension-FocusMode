@@ -23,23 +23,23 @@ chrome.runtime.onMessage.addListener( request =>
 
 function injectFocusMode()
 {
-  const target = 'element-in-current-focus';
-  const hidden = 'hide-element-in-focus-mode';
+  const marker = 'focus-mode-spot';
+  const hidden = 'focus-mode-hide';
 
   function lightOn(e)
   {
     e.preventDefault();
     e.stopImmediatePropagation();
 
-    e.target.classList.add(target);
+    e.target.classList.add(marker);
   }
 
   function lightOff(e)
   {
     e.preventDefault();
-    e.stopImmediatePropagation();    
+    e.stopImmediatePropagation();
 
-    e.target.classList.remove(target);    
+    e.target.classList.remove(marker);    
   }
 
   function hideMe(e)
@@ -47,8 +47,8 @@ function injectFocusMode()
     e.preventDefault();
     e.stopImmediatePropagation();    
 
-    e.target.className = hidden;
-    e.target.setAttribute("style", "display:none;");
+    e.target.setAttribute("style", "display:none");
+    e.target.setAttribute("class", hidden);
 
     if (document.body === e.target)
     {
@@ -60,7 +60,7 @@ function injectFocusMode()
   {
     document.body.removeEventListener("mouseover", lightOn);
     document.body.removeEventListener("mouseout", lightOff);
-    document.body.removeEventListener("click", hideMe,true);    
+    document.body.removeEventListener("click", hideMe,true);
   }
 
   document.body.addEventListener("mouseover", lightOn);

@@ -1,21 +1,34 @@
 
-.element-in-current-focus,
-.element-in-current-focus *
+.focus-mode-spot,
+.focus-mode-spot *,
+a.focus-mode-spot,
+p.focus-mode-spot,
+ul.focus-mode-spot,
+ol.focus-mode-spot,
+li.focus-mode-spot,
+div.focus-mode-spot,
+span.focus-mode-spot,
+form.focus-mode-spot,
+input.focus-mode-spot,
+label.focus-mode-spot,
+button.focus-mode-spot
 { 
     background-color: #00ffff !important;
     cursor: default !important;
 }
 
-img.element-in-current-focus,
-.element-in-current-focus img
+img.focus-mode-spot,
+.focus-mode-spot img,
+video.focus-mode-spot,
+.focus-mode-spot video
 { 
     -webkit-filter: opacity(50%) blur(4px) !important; 
     filter: opacity(50%) blur(4px) !important;
 }
 
-.hide-element-in-focus-mode
+.focus-mode-hide
 {
     display: none !important;
     visibility: hidden !important;
-    z-index: -1000 !important;
+    z-index: -999 !important;
 }
