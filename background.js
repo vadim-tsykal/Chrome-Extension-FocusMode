@@ -69,12 +69,13 @@ chrome.runtime.onMessage.addListener((request, sender) =>
 
 function hideFrame(id)
 {
+  const hidden = 'focus-mode-hide';
   const frame = document.activeElement;
 
   if (frame)
   {
-    frame.classList.add('hide-element-in-focus-mode');
-    frame.style.display = "none";
+    frame.setAttribute("style", "display:none");
+    frame.setAttribute("class", hidden);
   }
 }
 
