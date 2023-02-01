@@ -1,7 +1,7 @@
 'use strict';
 
 const focusMode = 'ON';
-const debugMode = true;
+const debugMode = false;
 
 chrome.action.onClicked.addListener(async (tab) => 
 {

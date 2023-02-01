@@ -7,8 +7,8 @@ chrome.runtime.onMessage.addListener( request =>
   if (request.inject)
   {
     log(`Inject request received in ${frame}`);
-    injectFocusMode();
-  } 
+    injectFocusMode(log);
+  }
   else if (request.eject && window.ejectFocusMode) 
   {
     log(`Eject request received in ${frame}`);
@@ -21,31 +21,24 @@ chrome.runtime.onMessage.addListener( request =>
   }
 })
 
-function injectFocusMode()
+function injectFocusMode(log)
 {
   const marker = 'focus-mode-spot';
   const hidden = 'focus-mode-hide';
 
   function lightOn(e)
   {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-
     e.target.classList.add(marker);
   }
 
   function lightOff(e)
   {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-
     e.target.classList.remove(marker);    
   }
 
   function hideMe(e)
   {
-    e.preventDefault();
-    e.stopImmediatePropagation();    
+    ignoreMe(e);
 
     e.target.setAttribute("style", "display:none");
     e.target.setAttribute("class", hidden);
@@ -56,16 +49,25 @@ function injectFocusMode()
     }
   }
 
+  function ignoreMe(e)
+  {
+    e.preventDefault();
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+  }
+
   function eject()
   {
     document.body.removeEventListener("mouseover", lightOn);
     document.body.removeEventListener("mouseout", lightOff);
-    document.body.removeEventListener("click", hideMe,true);
+    document.body.removeEventListener("mousedown", hideMe, true);
+    document.body.removeEventListener("click", ignoreMe, true);
   }
 
   document.body.addEventListener("mouseover", lightOn);
   document.body.addEventListener("mouseout", lightOff);
-  document.body.addEventListener("click", hideMe,true);
+  document.body.addEventListener("mousedown", hideMe, true);
+  document.body.addEventListener("click", ignoreMe, true);
 
   window.ejectFocusMode = eject;
 }
