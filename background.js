@@ -57,7 +57,7 @@ chrome.runtime.onMessage.addListener((request, sender) =>
       args: [request.hideFrame],
       target: { tabId: sender.tab.id }
     })
-    .then( obj => void chrome.runtime.lastError)
+    .then( res => void chrome.runtime.lastError)
     .catch(err => void chrome.runtime.lastError);
   }
   

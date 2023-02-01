@@ -3,7 +3,7 @@
 A handy tool for customising web pages. You decide what to hide by clicking on highlighted element as you move mouse pointer over the page. Unlike other focus mode extensions, this tool is not limited to one web site only. Now any web page can look like you want it!
 
 A few examples of use cases:
-- clean up an overloaded UI
+- clean up a flashy or cluttered UI and keep only important content on your screen
 - clean up a web page before printing or taking a screenshot
 - unhide content behind blocking dialogs
 - remove distractors (ads, autoplay videos, annoying popups, huge headers and banners, etc.)
