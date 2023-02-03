@@ -1,10 +1,12 @@
 'use strict';
 
 const focusMode = 'ON';
-const debugMode = false;
+const debugMode = true;
 
 chrome.action.onClicked.addListener(async (tab) => 
 {
+  try
+  {
     const oldState = await chrome.action.getBadgeText({ tabId: tab.id });
     const newState = focusMode === oldState ? '' : focusMode;
 
@@ -16,29 +18,27 @@ chrome.action.onClicked.addListener(async (tab) =>
 
     log(`Focus mode is ${newState || 'OFF'}`)
 
-    try
+    if (focusMode === newState)
     {
-      if (focusMode === newState)
-      {
-        log(`Inject request broadcast`)
-        await chrome.tabs.sendMessage(tab.id, { inject: true, debugMode })
-      } 
-      else
-      {
-        log(`Eject request broadcast`)
-        await chrome.tabs.sendMessage(tab.id, { eject: true, debugMode })
-      }
-    }
-    catch (err)
+      log(`Inject request broadcast`)
+      await chrome.tabs.sendMessage(tab.id, { inject: true, debugMode })
+    } 
+    else
     {
-      log(err);
-      void chrome.runtime.lastError;
+      log(`Eject request broadcast`)
+      await chrome.tabs.sendMessage(tab.id, { eject: true, debugMode })
     }
+  }
+  catch (err)
+  {
+    log(err);
+    void chrome.runtime.lastError;
+  }
 
-    function log()
-    {
-      self.log("tabId", tab.id, tab.title?.slice(0,50), ...arguments);
-    }
+  function log()
+  {
+    self.log("tabId", tab.id, tab.title?.slice(0,50), ...arguments);
+  }
 });
 
 chrome.runtime.onMessage.addListener((request, sender) => 
@@ -72,7 +72,7 @@ function hideFrame(id)
   const hidden = 'focus-mode-hide';
   const frame = document.activeElement;
 
-  if (frame)
+  if (frame && frame !== document.body)
   {
     frame.setAttribute("style", "display:none");
     frame.setAttribute("class", hidden);

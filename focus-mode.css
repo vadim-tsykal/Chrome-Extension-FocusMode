@@ -15,6 +15,7 @@ button.focus-mode-spot
 { 
     background-color: #00ffff !important;
     cursor: default !important;
+    outline: thick solid rgba(0, 255, 255, 0.7) !important;
 }
 
 img.focus-mode-spot,
