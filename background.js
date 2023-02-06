@@ -32,8 +32,9 @@ chrome.action.onClicked.addListener(async (tab) =>
   catch (err)
   {
     log(err);
-    void chrome.runtime.lastError;
   }
+
+  void chrome.runtime.lastError;
 
   function log()
   {
@@ -48,36 +49,28 @@ chrome.runtime.onMessage.addListener((request, sender) =>
     log(...request.message)
   }
 
-  if (request.hideFrame) 
+  if (request.hide)
   {
-    log("Hide frame request");
     chrome.scripting.executeScript(
     {
-      func: hideFrame,
-      args: [request.hideFrame],
+      func: () => {if (window.hideInFocusMode) hideInFocusMode()},
       target: { tabId: sender.tab.id }
     })
-    .then( res => void chrome.runtime.lastError)
-    .catch(err => void chrome.runtime.lastError);
+    .then( res => ignore() )
+    .catch(err => ignore(err) );
   }
   
+  function ignore(err)
+  {
+    if (err) log(err);
+    void chrome.runtime.lastError;
+  }
+
   function log()
   {
     self.log("tabId", sender.tab.id, "frameId", sender.frameId, sender.tab.title?.slice(0,50), ...arguments)
   }
 });
-
-function hideFrame(id)
-{
-  const hidden = 'focus-mode-hide';
-  const frame = document.activeElement;
-
-  if (frame && frame !== document.body)
-  {
-    frame.setAttribute("style", "display:none");
-    frame.setAttribute("class", hidden);
-  }
-}
 
 function log()
 {
