@@ -53,7 +53,7 @@ chrome.runtime.onMessage.addListener((request, sender) =>
   {
     chrome.scripting.executeScript(
     {
-      func: () => {if (window.hideInFocusMode) hideInFocusMode()},
+      func: () => {if (window.hideElementInFocus) hideElementInFocus()},
       target: { tabId: sender.tab.id }
     })
     .then( res => ignore() )

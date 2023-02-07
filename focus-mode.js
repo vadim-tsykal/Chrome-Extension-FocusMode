@@ -85,7 +85,7 @@ function injectFocusMode(log)
     document.removeEventListener("click", ignore, true);
 
     window.ejectFocusMode = null;
-    window.hideInFocusMode = null;
+    window.hideElementInFocus = null;
   }
 
   document.addEventListener("mouseover", mark);
@@ -94,7 +94,7 @@ function injectFocusMode(log)
   document.addEventListener("click", ignore, true);
 
   window.ejectFocusMode = eject;
-  window.hideInFocusMode = hideElementInFocus;
+  window.hideElementInFocus = hideElementInFocus;
 }
 
 function notifyFocusMode(obj)
