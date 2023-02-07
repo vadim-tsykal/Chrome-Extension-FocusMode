@@ -26,12 +26,18 @@ function injectFocusMode(log)
   const marker = 'focus-mode-spot';
   const hidden = 'focus-mode-hide';
 
+  let elementInFocus;
+
+  function isRoot(target)
+  {
+    return (window.top === window
+        && (document.body === target || document.documentElement === target) )
+  }
+
   function mark(e)
   {
-    if (window.top !== window || document.body !== e.target)
-    {
-      e.target.classList.add(marker)
-    }
+    elementInFocus = isRoot(e.target) ? null : e.target;
+    elementInFocus?.classList.add(marker);
   }
 
   function unmark(e)
@@ -43,15 +49,24 @@ function injectFocusMode(log)
   {
     ignore(e);
 
-    if (window.top !== window || document.body !== e.target)
+    if (!isRoot(e.target))
     {
       e.target.setAttribute("style", "display:none");
       e.target.setAttribute("class", hidden);
 
-      if (document.body === e.target)
+      if (document.body === e.target || document.documentElement === e.target)
       {
-        notifyFocusMode({ hideFrame: true })
+        notifyFocusMode({ hide: true })
       }
+    }
+  }
+
+  function hideElementInFocus()
+  {
+    if (elementInFocus)
+    {
+      elementInFocus.setAttribute("style", "display:none");
+      elementInFocus.setAttribute("class", hidden);
     }
   }
 
@@ -64,25 +79,22 @@ function injectFocusMode(log)
 
   function eject()
   {
-    document.body.removeEventListener("mouseover", mark);
-    document.body.removeEventListener("mouseout", unmark);
-    document.body.removeEventListener("mousedown", hide, true);
-    document.body.removeEventListener("click", ignore, true);
+    document.removeEventListener("mouseover", mark);
+    document.removeEventListener("mouseout", unmark);
+    document.removeEventListener("mousedown", hide, true);
+    document.removeEventListener("click", ignore, true);
+
+    window.ejectFocusMode = null;
+    window.hideElementInFocus = null;
   }
 
-  if (document.body)
-  {
-    document.body.addEventListener("mouseover", mark);
-    document.body.addEventListener("mouseout", unmark);
-    document.body.addEventListener("mousedown", hide, true);
-    document.body.addEventListener("click", ignore, true);
+  document.addEventListener("mouseover", mark);
+  document.addEventListener("mouseout", unmark);
+  document.addEventListener("mousedown", hide, true);
+  document.addEventListener("click", ignore, true);
 
-    window.ejectFocusMode = eject;
-  }
-  else
-  {
-    log('This frame has no body and focus mode is useless.')
-  }
+  window.ejectFocusMode = eject;
+  window.hideElementInFocus = hideElementInFocus;
 }
 
 function notifyFocusMode(obj)
