@@ -1,5 +1,9 @@
 'use strict';
 
+// Because of the static linking in the manifest, the Chrome Web Store will
+// display a security warning. However, this method has proven to be the most
+// efficient and reliable way to give the user full control over the content.
+
 const focusMode = 'ON';
 const debugMode = true;
 
@@ -53,8 +57,8 @@ chrome.runtime.onMessage.addListener((request, sender) =>
   {
     chrome.scripting.executeScript(
     {
-      func: () => {if (window.hideElementInFocus) hideElementInFocus()},
-      target: { tabId: sender.tab.id }
+      target: { tabId: sender.tab.id },
+      func: () => { if (window.hideElementInFocus) hideElementInFocus() }
     })
     .then( res => ignore() )
     .catch(err => ignore(err) );

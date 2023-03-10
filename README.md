@@ -21,6 +21,9 @@ A few facts about the tool:
 - It is not active while you are surfing and does not consume any resources unlike adblockers
 - It was inspired by a same-name Google example
 
+Because of the static linking in the manifest, the Chrome Web Store will display a security warning upon the extension installation. Anyway, this method has proven to be the most efficient and reliable way to give the user complete control over the content of any website.
+
+
 Download
 https://chrome.google.com/webstore/detail/focus-mode/npmdigoapkknhppmkeipamgclfemkigo
 
