@@ -21,7 +21,8 @@
      "matches": ["*://*/*"],
      "css": ["focus-mode.css"],
      "js": ["focus-mode.js"],
-     "all_frames": true
+     "all_frames": true,
+     "match_about_blank": true
    }
   ],
   "action": {

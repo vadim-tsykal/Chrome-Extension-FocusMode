@@ -40,5 +40,5 @@ video.focus-mode-spot,
 {
     display: none !important;
     visibility: hidden !important;
-    z-index: -999 !important;
+    z-index: -1000000 !important;
 }
