@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Focus Mode",
   "description": "Customize any web page for your needs",
-  "version": "1.0.7",
+  "version": "1.0.9",
   "icons": {
     "16": "images/icon-16.png",
     "32": "images/icon-32.png",
@@ -18,7 +18,7 @@
   },
   "content_scripts": [
    {
-     "matches": ["*://*/*"],
+     "matches": ["<all_urls>"],
      "css": ["focus-mode.css"],
      "js": ["focus-mode.js"],
      "all_frames": true,

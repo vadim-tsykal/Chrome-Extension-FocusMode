@@ -7,6 +7,8 @@ ul.focus-mode-spot,
 ol.focus-mode-spot,
 li.focus-mode-spot,
 div.focus-mode-spot,
+img.focus-mode-spot,
+video.focus-mode-spot,
 span.focus-mode-spot,
 form.focus-mode-spot,
 input.focus-mode-spot,
@@ -27,14 +29,16 @@ body
     background-color: white;
 }
 
+/* Sometimes the mouseout event is not delivered and the image stays blured
 img.focus-mode-spot,
 .focus-mode-spot img,
 video.focus-mode-spot,
 .focus-mode-spot video
-{ 
+{
     -webkit-filter: opacity(50%) blur(4px) !important; 
     filter: opacity(50%) blur(4px) !important;
 }
+*/
 
 .focus-mode-hide
 {
